@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import FilterField from './components/FilterField.vue'
-import SearchField from './components/SearchField.vue'
-import Header from './components/Header.vue'
-import ResultDisplay from './components/ResultDisplay.vue'
+    import FilterField from './components/FilterField.vue'
+    import SearchField from './components/SearchField.vue'
+    import Header from './components/Header.vue'
+    import ResultDisplay from './components/ResultDisplay.vue'
 
 export default {
   name: 'App',

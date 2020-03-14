@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-navbar toggleable="lg" type="dark" style="background-color: #842929">
-            <b-navbar-brand href="#">RedBiome</b-navbar-brand>
+            <b-navbar-brand href="#">RedBiom</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
