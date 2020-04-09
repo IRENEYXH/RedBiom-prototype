@@ -7,8 +7,8 @@
                     <b-table striped small :items="stats"></b-table>
                 </b-col>
 
-                <b-col>
-                    <div id="vis"></div>
+                <b-col style="margin: 0; padding: 0">
+                    <div id="wm"></div>
                 </b-col>
             </b-row>
         </div>

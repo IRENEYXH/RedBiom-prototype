@@ -10,6 +10,7 @@
                 <b-button pill variant="outline-danger" size="sm">feature</b-button>
             </div>
 
+            <div id="fv"></div>
             <div>
             </div>
 
@@ -18,12 +19,9 @@
 </template>
 
 <script>
-    // import { D3BarChart } from 'vue-d3-charts';
-
     export default {
         name: "FilterField",
         components: {
-            // D3BarChart
         },
         data (){
             return {

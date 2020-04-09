@@ -57,7 +57,7 @@ export default {
   }
 
   #search{
-    height: 250px;
+    height: 270px;
   }
 
   #filter{
