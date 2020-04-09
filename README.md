@@ -6,10 +6,10 @@
 ## Motivations
 After researched on current command line tool and web interface, we found several limitations to the design that would lead to hidden features and furstrating user experience. Therefore, this web prototype is to improve the smoothness of searching process, provide more guidance, and encourage explorations in data.
 
-**Design process doc**
-- [Interview notes]()
-- [CLT first impression report]()
-- [Development notes]()
+![interface](https://github.com/IRENEYXH/RedBiom-prototype/blob/master/doc/prototype.png)
+
+**[Design process doc](https://github.com/IRENEYXH/RedBiom-prototype/tree/master/doc)**
+
 
 ## Development
 
