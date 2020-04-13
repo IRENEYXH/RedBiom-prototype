@@ -14,7 +14,7 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto" style="margin-right: 40px">
-                    <h8 style="color: #FCFCFC">Log in to access full functionality</h8>
+                    <h6 style="color: #FCFCFC">Log in to access full functionality</h6>
                     <b-button size="sm" variant="light" type="submit">Login</b-button>
                     <b-button size="sm" variant="outline-light" type="submit">Sign up</b-button>
                 </b-navbar-nav>
