@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.ico><title>prototype</title><link href=css/app.ec5f0e79.css rel=preload as=style><link href=css/chunk-vendors.67042d3d.css rel=preload as=style><link href=js/app.7fc4645f.js rel=preload as=script><link href=js/chunk-vendors.4c27e42a.js rel=preload as=script><link href=css/chunk-vendors.67042d3d.css rel=stylesheet><link href=css/app.ec5f0e79.css rel=stylesheet></head><script src=https://cdn.jsdelivr.net/npm/vega@5.9.2></script><script src=https://cdn.jsdelivr.net/npm/vega-lite@4.5.1></script><script src=https://cdn.jsdelivr.net/npm/vega-embed@6.3.2></script><script src=https://cdn.jsdelivr.net/npm/vega@5></script><body><noscript><strong>We're sorry but prototype doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=js/chunk-vendors.4c27e42a.js></script><script src=js/app.7fc4645f.js></script></body><script>var worldMap = {
+          "$schema": "https://vega.github.io/schema/vega/v5.json",
+          "width": 560,
+          "height": 300,
+          "padding": {"top": 5, "left": 5, "right": 0, "bottom": 0},
+          "autosize": "fit-x",
+          "data": [
+              {
+                  "name": "world",
+                  "url": "countries-110m.json",
+                  "format": {"type": "topojson", "feature": "countries"},
+                  "transform": [
+                      {
+                          "type": "geopath",
+                          "projection": "projection"
+                      }
+                  ]
+              },
+              {
+                  "name": "cities",
+                  "url": "worldcities.csv",
+                  "format": {"type": "csv", "parse": "auto"},
+                  "transform": [
+                      {
+                          "type": "geopoint",
+                          "projection": "projection",
+                          "fields": ["lng", "lat"]
+                      },
+                      {
+                          "type": "filter",
+                          "expr": "datum.x != null && datum.y != null"
+                      }
+                  ]
+              }
+          ],
+          "projections": [
+              {
+                  "name": "projection",
+                  "type": "equalEarth",
+                  "scale": 90,
+                  "translate": [0,0]
+              }
+          ],
+          "marks": [
+              {
+                  "type": "shape",
+                  "from": {"data": "world"},
+                  "encode": {
+                      "update": {
+                          "strokeWidth": {"value": "1"},
+                          "stroke": {"value": '#777'},
+                          "fill": {"value": '#fff'},
+                          "zindex": {"value": 0}
+                      },
+                      "hover": {
+                          "strokeWidth": {"value": "2"},
+                          "stroke": {"value": "firebrick"},
+                          "zindex": {"value": 1}
+                      }
+                  },
+                  "transform": [
+                      {"type": "geoshape", "projection": "projection"}
+                  ]
+              },
+              {
+                  "type": "symbol",
+                  "from": {"data": "cities"},
+                  "encode": {
+                      "enter": {
+                          "size": {"value": 2},
+                          "fill": {"value": "steelblue"},
+                          "fillOpacity": {"value": 0.8}
+                      },
+                      "update": {
+                          "x": {"field": "x"},
+                          "y": {"field": "y"}
+                      }
+                  }
+              }
+          ]
+      };
+      vegaEmbed('#wm', worldMap);
+
+      var filterVis = {
+          "$schema": "https://vega.github.io/schema/vega/v5.json",
+          "width": 200,
+          "height": 180,
+          "padding": 5,
+
+          "data": [
+              {
+                  "name": "table",
+                  "values": [
+                      {"category": "A", "amount": 28},
+                      {"category": "B", "amount": 55},
+                      {"category": "C", "amount": 43},
+                      {"category": "D", "amount": 91},
+                      {"category": "E", "amount": 81},
+                      {"category": "F", "amount": 53},
+                      {"category": "G", "amount": 19},
+                      {"category": "H", "amount": 87}
+                  ]
+              }
+          ],
+
+          "signals": [
+              {
+                  "name": "tooltip",
+                  "value": {},
+                  "on": [
+                      {"events": "rect:mouseover", "update": "datum"},
+                      {"events": "rect:mouseout",  "update": "{}"}
+                  ]
+              }
+          ],
+
+          "scales": [
+              {
+                  "name": "xscale",
+                  "type": "band",
+                  "domain": {"data": "table", "field": "category"},
+                  "range": "width",
+                  "padding": 0.05,
+                  "round": true
+              },
+              {
+                  "name": "yscale",
+                  "domain": {"data": "table", "field": "amount"},
+                  "nice": true,
+                  "range": "height"
+              }
+          ],
+
+          "axes": [
+              { "orient": "bottom", "scale": "xscale" },
+              { "orient": "left", "scale": "yscale" }
+          ],
+
+          "marks": [
+              {
+                  "type": "rect",
+                  "from": {"data":"table"},
+                  "encode": {
+                      "enter": {
+                          "x": {"scale": "xscale", "field": "category"},
+                          "width": {"scale": "xscale", "band": 1},
+                          "y": {"scale": "yscale", "field": "amount"},
+                          "y2": {"scale": "yscale", "value": 0}
+                      },
+                      "update": {
+                          "fill": {"value": "steelblue"}
+                      },
+                      "hover": {
+                          "fill": {"value": "red"}
+                      }
+                  }
+              },
+              {
+                  "type": "text",
+                  "encode": {
+                      "enter": {
+                          "align": {"value": "center"},
+                          "baseline": {"value": "bottom"},
+                          "fill": {"value": "#333"}
+                      },
+                      "update": {
+                          "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+                          "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+                          "text": {"signal": "tooltip.amount"},
+                          "fillOpacity": [
+                              {"test": "isNaN(tooltip.amount)", "value": 0},
+                              {"value": 1}
+                          ]
+                      }
+                  }
+              }
+          ]
+      };
+      vegaEmbed('#fv', filterVis);</script></html>
